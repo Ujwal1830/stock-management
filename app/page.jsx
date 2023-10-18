@@ -59,8 +59,13 @@ export default function Home() {
     } catch (error) {
       console.log("Error :: "+error);
     }
-
-    
+    try {
+      const response = await fetch('/api/products');
+      const data = await response.json();
+      setAllProducts(data.allProducts);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }
   const handleChange =(e)=>{
     setProductForm({...productForm, [e.target.name]: e.target.value})
@@ -68,9 +73,9 @@ export default function Home() {
 
 
   const onDropDownEdit = async(e) => {
-    if(query===""){ setDropDown([]); }
-    setQuery(e.target.value);
-    if(query?.length >= 3){
+    let value = e.target.value;
+    setQuery(value);
+    if(value.length > 3){
       try {
         setLoading(true);
         setDropDown([]);
@@ -127,7 +132,7 @@ export default function Home() {
   
 
   return (
-    <>
+    <div className="mx-2 md:mx-10">
       {/* Modal pop-up */}
         <dialog id="my_modal_4" className=" bg-black bg-opacity-60 rounded-2xl">
           <div className="modal-box w-fit p-16">
@@ -205,6 +210,6 @@ export default function Home() {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 }

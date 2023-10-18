@@ -1,12 +1,15 @@
+import Link from "next/link";
 import React from "react";
 
 const Header = () => {
+
+  const session = null;
+
   return (
     <header className="text-gray-600 body-font ">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <div className="container mx-auto flex p-2 md:p-5 flex-row justify-between items-center">
+        <a className="flex title-font font-medium justify-center items-center text-gray-900">
           <svg
-            xmlns="http://www.w3.org/2000/svg"
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
@@ -17,14 +20,25 @@ const Header = () => {
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
-          <span className="ml-3 text-xl">Stock Management System</span>
+          <span className="ml-2 text-sm md:text-xl">Stock Management System</span>
         </a>
-        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          <a className="mr-5 hover:text-gray-900">First Link</a>
-          <a className="mr-5 hover:text-gray-900">Second Link</a>
-          <a className="mr-5 hover:text-gray-900">Third Link</a>
-        </nav>
-        
+        { session 
+            ? <div className="flex flex-row items-center gap-5">
+                <div className="md:flex hidden text-base gap-5">
+                    <Link href={"/signin"} className="bg-slate-700 text-slate-200 px-5 py-2 rounded-xl hover:bg-slate-200 hover:text-slate-700 hover:border-2 hover:drop-shadow-xl" >
+                      Sign Out
+                    </Link>
+                </div>
+                <div className=" bg-indigo-500 px-4 py-2.5 rounded-full">
+                    <span className=" ">U</span>
+                </div> 
+              </div>
+            : <div className="md:flex hidden text-base gap-5">
+                <Link href={"/signin"} className="bg-slate-700 text-slate-200 px-5 py-2 rounded-xl hover:bg-slate-200 hover:text-slate-700 hover:border-2 hover:drop-shadow-xl" >
+                  Sign In
+                </Link>
+              </div> 
+        }
       </div>
     </header>
   );
